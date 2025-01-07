@@ -3,6 +3,7 @@ package com.errandbuddy.errandbuddy.Services;
 import com.errandbuddy.errandbuddy.Data.Model.Admin;
 import com.errandbuddy.errandbuddy.Dto.request.CreateAdminRequest;
 import com.errandbuddy.errandbuddy.Dto.request.EmailDetails;
+import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Repository.AdminRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
@@ -50,5 +51,15 @@ public class AdminServiceImplementation  implements AdminService{
 
 
 
+    }
+
+    @Override
+    public Boolean loginAdmin(LoginRequest loginRequest) {
+        Admin admin = adminRepository.findByEmail(loginRequest.getEmail());
+
+        if ( admin == null) {
+            return false;
+        }
+        return loginRequest.getPassword().equals(admin.getPassword());
     }
 }

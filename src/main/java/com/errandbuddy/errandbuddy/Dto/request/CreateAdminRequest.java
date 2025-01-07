@@ -15,12 +15,16 @@ import lombok.*;
 @NoArgsConstructor
 
 public class CreateAdminRequest {
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @NotBlank(message = "Password is Mandatory")
     @Size(max= 6, message = "Password must be at most 6 charcters")
     @Pattern(regexp = "\\d{0,6}", message = "Password must be up to 6 digits only")
     private String password;
+
+    @NotBlank(message = "Phone number is mandatory")
     private String phoneNumber;
 
     @NotBlank(message = "Email is mandatory")
