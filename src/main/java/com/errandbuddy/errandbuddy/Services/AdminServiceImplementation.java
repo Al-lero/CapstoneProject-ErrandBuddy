@@ -40,7 +40,7 @@ public class AdminServiceImplementation  implements AdminService{
                 .recipient(savedAdmin.getEmail())
                 .subject("welcome!")
                 .messageBody("Welcome to Errand Buddy, where running your errands are magical\" +\n" +
-                        "                        \"\\nErrandBuddyAdmin Name: \" + savedUser.getName() + \" \" + \"\\nErrandBuddyAdmin Email:\" + savedUser.getEmail() + \" \" + \"\\nErrandBuddyAdmin Password:\" + savedUser.getPassword())")
+                        "                        \"\\nErrandBuddyAdmin Name: \" + savedAdmin.getName() + \" \" + \"\\nErrandBuddyAdmin Email:\" + savedAdmin.getEmail() + \" \" + \"\\nErrandBuddyAdmin Password:\" + savedAdmin.getPassword())")
                 .build();
 
         emailService.sendEmailAlert(emailDetails);

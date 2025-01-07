@@ -56,7 +56,8 @@ class AdminServiceImplementationTest {
 
 
         Admin existingAdmin = Admin.builder()
-                .email(createAdminRequest.getEmail())
+                .email(createAdminRequest.getEmail()
+                )
                 .name(createAdminRequest.getName())
                 .password(createAdminRequest.getPassword())
                 .phoneNumber(createAdminRequest.getPhoneNumber())
