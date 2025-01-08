@@ -42,7 +42,7 @@ class UserServiceImplementationTest {
 
     @Test
     public void testCreateUser_UserExists() {
-        // Save an existing user to simulate a duplicate
+
         User existingUser = User.builder()
                 .name(userRequest.getName())
                 .surname(userRequest.getSurname())
@@ -56,7 +56,6 @@ class UserServiceImplementationTest {
 
         userRepository.save(existingUser);
 
-        // Test the createUser method with the same email
         ErrandBuddyResponse response = userService.createUser(userRequest);
 
         assertEquals(ErrandBuddyUtils.User_Exist_Message, response.getResponseMessage());
