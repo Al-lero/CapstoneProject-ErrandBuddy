@@ -1,6 +1,7 @@
 package com.errandbuddy.errandbuddy.Controller;
 
 import com.errandbuddy.errandbuddy.Dto.request.CreateBuddyRequest;
+import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Services.BuddyService;
 import jakarta.validation.Valid;
@@ -20,5 +21,20 @@ public class BuddyController {
     @PostMapping("create")
     public ErrandBuddyResponse createBuddy(@Valid @RequestBody CreateBuddyRequest createBuddyRequest){
         return buddyService.createBuddy(createBuddyRequest);
+    }
+
+    @PostMapping("login")
+    public ErrandBuddyResponse loginBuddy(@Valid @RequestBody LoginRequest loginRequest){
+        Boolean loginSuccessful = buddyService.loginBuddy(loginRequest);
+        if(loginSuccessful) {
+            return ErrandBuddyResponse.builder()
+                    .responseMessage("Buddy Login Successfully")
+                    .build();
+        } else {
+            return ErrandBuddyResponse.builder()
+                    .responseMessage("Invalid details"
+                    )
+                    .build();
+        }
     }
 }
