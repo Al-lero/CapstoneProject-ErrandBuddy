@@ -1,5 +1,6 @@
 package com.errandbuddy.errandbuddy.Dto.request;
 
+import com.errandbuddy.errandbuddy.utils.Location;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +41,7 @@ public class CreateBuddyRequest {
 
     @NotBlank(message = "Address is Mandatory")
     private String address;
+
+    private Location location;
 
 }

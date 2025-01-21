@@ -36,6 +36,7 @@ public class BuddyServiceImplementation implements BuddyService {
                 .phoneNumber(buddyRequest.getPhoneNumber())
                 .password(buddyRequest.getPassword())
                 .nin(buddyRequest.getNin())
+                .location(buddyRequest.getLocation())
                 .build();
 
         Buddy savedBuddy = buddyRepository.save(newBuddy);

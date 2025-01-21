@@ -1,5 +1,6 @@
 package com.errandbuddy.errandbuddy.Data.Model;
 
+import com.errandbuddy.errandbuddy.utils.Location;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -54,6 +55,7 @@ public class Buddy {
     @NotBlank(message = "Address is Mandatory")
     private String address;
 
+    private Location location;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

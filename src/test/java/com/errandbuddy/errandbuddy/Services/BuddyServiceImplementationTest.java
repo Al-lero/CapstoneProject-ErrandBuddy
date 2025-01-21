@@ -6,6 +6,7 @@ import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Repository.BuddyRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
+import com.errandbuddy.errandbuddy.utils.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BuddyServiceImplementationTest {
+
+    @Autowired
+    UserService userService;
+
+
 
     @Autowired
     private BuddyRepository buddyRepository;
@@ -34,6 +40,7 @@ class BuddyServiceImplementationTest {
         buddyRequest.setPhoneNumber("09812345215");
         buddyRequest.setAge(19);
         buddyRequest.setNin("22234345641");
+        buddyRequest.setLocation(Location.YABA);
 
         buddyRepository.deleteAll();
     }
@@ -49,6 +56,7 @@ class BuddyServiceImplementationTest {
                 .address(buddyRequest.getAddress())
                 .email(buddyRequest.getEmail())
                 .age(buddyRequest.getAge())
+                .location(buddyRequest.getLocation())
                 .build();
 
         buddyRepository.save(existingBuddy);
@@ -70,6 +78,7 @@ class BuddyServiceImplementationTest {
                 .phoneNumber(buddyRequest.getPhoneNumber())
                 .age(buddyRequest.getAge())
                 .email(buddyRequest.getEmail())
+                .location(buddyRequest.getLocation())
                 .build();
 
         ErrandBuddyResponse response = buddyService.createBuddy(createBuddyRequest);
@@ -84,5 +93,26 @@ class BuddyServiceImplementationTest {
         assertNotNull(loginSuccessful);
         assertEquals(true, loginSuccessful);
     }
+
+
+    @Test
+    public void testThatBuddyCanAcceptErrand(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("kemiyione@ymail.com");
+        loginRequest.setPassword("900012");
+
+        boolean loginSuccessful = userService.loginUser(loginRequest);
+
+        assertNotNull(loginSuccessful);
+        assertEquals(true, loginSuccessful);
+
+
+
+
+//        AcceptErrandRequest request = new AcceptErrandRequest();
+
+    }
+
+
 
 }
