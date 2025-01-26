@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 @SpringBootTest
 class UserServiceImplementationTest {
@@ -28,16 +30,17 @@ class UserServiceImplementationTest {
     @BeforeEach
     public void setup() {
         userRequest = new CreateUserRequest();
-        userRequest.setEmail("kemiyione@ymail.com");
+        userRequest.setEmail("utieyionealero@yahoo.com");
         userRequest.setName("Alero");
-        userRequest.setSurname("Arokoyo");
-        userRequest.setPassword("900012");
-        userRequest.setPhoneNumber("08120819972");
-        userRequest.setAge(21);
-        userRequest.setNin("22113345566");
-        userRequest.setAddress("No 30 ojo, lagos state");
+        userRequest.setSurname("Richard");
+        userRequest.setPassword("900014");
+        userRequest.setPhoneNumber("08020819978");
+        userRequest.setAge(60);
+        userRequest.setNin("22113345599");
+        userRequest.setAddress("No 10 iba, lagos state");
 
         userRepository.deleteAll();
+;
     }
 
     @Test
@@ -78,13 +81,21 @@ class UserServiceImplementationTest {
         ErrandBuddyResponse response = userService.createUser(createUserRequest);
         assertEquals(ErrandBuddyUtils.User_Created_Successfully, response.getResponseMessage());
 
+        User savedUser = userRepository.findByEmail(createUserRequest.getEmail());
+        assertNotNull(savedUser, "User should be saved in the repository");
+
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("kemiyione@ymail.com");
-        loginRequest.setPassword("900012");
+        loginRequest.setEmail(createUserRequest.getEmail());
+        loginRequest.setPassword("900014");
 
         boolean loginSuccessful = userService.loginUser(loginRequest);
-
-        assertNotNull(loginSuccessful);
-        assertEquals(true, loginSuccessful);
+        assertNotNull(loginSuccessful, "Login result should not be null");
+        assertTrue(loginSuccessful, "User should be able to login successfully");
     }
+
+
+//    @Test
+//    public void testThatUserCanUpdateDetails(){
+//
+//    }
 }

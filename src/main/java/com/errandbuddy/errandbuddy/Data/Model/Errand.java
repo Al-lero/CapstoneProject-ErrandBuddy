@@ -50,4 +50,5 @@ public class Errand {
     @UpdateTimestamp
     private LocalDateTime updated;
 
+
 }

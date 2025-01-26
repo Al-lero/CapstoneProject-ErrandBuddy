@@ -1,17 +1,26 @@
 package com.errandbuddy.errandbuddy.Services;
 
+import com.errandbuddy.errandbuddy.Data.Model.Errand;
 import com.errandbuddy.errandbuddy.Data.Model.User;
+import com.errandbuddy.errandbuddy.Dto.request.CreateErrandRequest;
 import com.errandbuddy.errandbuddy.Dto.request.CreateUserRequest;
 import com.errandbuddy.errandbuddy.Dto.request.EmailDetails;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Repository.UserRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
+import com.errandbuddy.errandbuddy.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class UserServiceImplementation implements UserService{
+public class
+UserServiceImplementation implements UserService{
+
+    private List<Errand> errands = new ArrayList<>();
 
     @Autowired
     public UserRepository userRepository;
@@ -71,4 +80,59 @@ public class UserServiceImplementation implements UserService{
 //        return loginRequest.getPassword().equals(user.getPassword());
         return isPasswordCorrect;
     }
+
+    @Override
+    public boolean updateUser(String email, User updatedUser) {
+        return false;
+    }
+
+    @Override
+    public ErrandBuddyResponse addErrand(CreateErrandRequest createErrandRequest) {
+        Errand errand = Errand.builder()
+                .userId(createErrandRequest.getUserId())
+                .description(createErrandRequest.getDescription())
+                .pickUpLocation(createErrandRequest.getPickUpLocation())
+                .deliveryLocation(createErrandRequest.getDeliveryLocation())
+                .status(Status.PENDING)
+                .build();
+
+        errands.add(errand);
+
+        User user = userRepository.findById(errand.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String messageBody = "Your errand consists of " + errand.getDescription();
+        emailService.sendEmailAlert(user.getEmail(), "New Errand", messageBody);
+
+        return ErrandBuddyResponse.builder()
+                .responseMessage("Errand created successfully")
+                .build();
+    }
+
+//    @Override
+//    public boolean updateUser(String email, User updatedUser) {
+//
+//        if ((userRepository.existsUserByEmail(email)) {
+//            User existingUser = userRepository.findByEmail(email).orElse(null);
+//
+//            if(existingUser == null){
+//                return false;
+//            }
+//
+//            User updatedUser = existingUser.builder()
+//                .email(existingUser.getEmail()) // Keep the same email
+//                .nin(updatedUser.getNin())
+//                .phoneNumber(updatedUser.getPhoneNumber())
+//                .age(updatedUser.getAge())
+//                .address(updatedUser.getAddress())
+//                .surname(updatedUser.getSurname())
+//                .password(updatedUser.getPassword())
+//                .build();
+//
+//            userRepository.save(updatedUser);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }

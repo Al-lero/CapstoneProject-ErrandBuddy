@@ -5,6 +5,8 @@ import com.errandbuddy.errandbuddy.Data.Model.Errand;
 import com.errandbuddy.errandbuddy.Data.Model.User;
 import com.errandbuddy.errandbuddy.Dto.request.CreateErrandRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
+import com.errandbuddy.errandbuddy.Exception.BuddyNotFoundException;
+import com.errandbuddy.errandbuddy.Exception.UserNotFoundException;
 import com.errandbuddy.errandbuddy.Repository.BuddyRepository;
 import com.errandbuddy.errandbuddy.Repository.ErrandRepository;
 import com.errandbuddy.errandbuddy.Repository.UserRepository;
@@ -13,8 +15,13 @@ import com.errandbuddy.errandbuddy.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ErrandServiceImplementation implements ErrandService {
+
+    private List<Errand> errands = new ArrayList<>();
 
     @Autowired
     private ErrandRepository errandRepository;
@@ -46,8 +53,12 @@ public class ErrandServiceImplementation implements ErrandService {
                 .build();
 
         Errand savedErrand = errandRepository.save(newErrand);
-        User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-        Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new RuntimeException("Buddy not found"));
+        User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new BuddyNotFoundException("Buddy not found"));
+
+//        Errand savedErrand = errandRepository.save(newErrand);
+//        User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
+//        Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new RuntimeException("Buddy not found"));
 
         String messageBody = "Your errand consists of " + savedErrand.getDescription();
         emailService.sendEmailAlert(savedUser.getEmail(), "New Errand", messageBody);
@@ -56,5 +67,36 @@ public class ErrandServiceImplementation implements ErrandService {
                 .responseMessage("Errand created successfully")
                 .build();
 
+    }
+
+    @Override
+    public ErrandBuddyResponse addNewErrand(CreateErrandRequest createErrandRequest) {
+        Errand errand = Errand.builder()
+                .userId(createErrandRequest.getUserId())
+                .description(createErrandRequest.getDescription())
+                .pickUpLocation(createErrandRequest.getPickUpLocation())
+                .deliveryLocation(createErrandRequest.getDeliveryLocation())
+                .status(Status.PENDING)
+                .build();
+
+        errands.add(errand);
+
+        User user = userRepository.findById(errand.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        String messageBody = "Your errand consists of " + errand.getDescription();
+        emailService.sendEmailAlert(user.getEmail(), "New Errand", messageBody);
+
+        return ErrandBuddyResponse.builder()
+                .responseMessage("Errand created successfully")
+                .build();
+    }
+
+
+
+
+    @Override
+    public List<Errand> getAllErrands() {
+        return new ArrayList<>(errands);
     }
 }

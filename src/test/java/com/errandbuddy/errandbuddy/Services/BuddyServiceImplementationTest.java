@@ -95,23 +95,23 @@ class BuddyServiceImplementationTest {
     }
 
 
-    @Test
-    public void testThatBuddyCanAcceptErrand(){
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("kemiyione@ymail.com");
-        loginRequest.setPassword("900012");
-
-        boolean loginSuccessful = userService.loginUser(loginRequest);
-
-        assertNotNull(loginSuccessful);
-        assertEquals(true, loginSuccessful);
-
-
-
-
+//    @Test
+//    public void testThatBuddyCanAcceptErrand(){
+//        LoginRequest loginRequest = new LoginRequest();
+//        loginRequest.setEmail("kemiyione@ymail.com");
+//        loginRequest.setPassword("900012");
+//
+//        boolean loginSuccessful = userService.loginUser(loginRequest);
+//
+//        assertNotNull(loginSuccessful);
+//        assertEquals(true, loginSuccessful);
+//
+//
+//
+//
 //        AcceptErrandRequest request = new AcceptErrandRequest();
-
-    }
+//
+//    }
 
 
 

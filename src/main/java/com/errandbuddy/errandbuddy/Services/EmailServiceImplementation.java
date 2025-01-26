@@ -28,6 +28,27 @@ public class EmailServiceImplementation implements EmailService {
 
             javaMailSender.send(mailMessage);
             System.out.println("Mail Sent Successfully");
+//        } catch (MailException e) {
+//            throw new RuntimeException(e);
+        } catch (MailException e) {
+                System.err.println("Error Sending Email: " + e.getMessage());
+                e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendEmailAlert(String email, String newErrand, String messageBody) {
+
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(senderEmail);
+            message.setTo(email);
+            message.setText(messageBody);
+            message.setSubject(newErrand);
+
+            javaMailSender.send(message);
+            System.out.println("Mail Sent Successfully");
+
         } catch (MailException e) {
             throw new RuntimeException(e);
         }
