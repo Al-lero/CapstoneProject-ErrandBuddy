@@ -10,5 +10,8 @@ public interface ErrandService {
 
     ErrandBuddyResponse createErrand(CreateErrandRequest createErrandRequest);
     ErrandBuddyResponse addNewErrand(CreateErrandRequest createErrandRequest);
+
+//    ErrandBuddyResponse userCanCreateErrand(CreateErrandRequest createErrandRequest);
+
     List<Errand> getAllErrands();
 }

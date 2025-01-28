@@ -1,13 +1,11 @@
 package com.errandbuddy.errandbuddy.Data.Model;
 
+import com.errandbuddy.errandbuddy.Data.Model.User;
 import com.errandbuddy.errandbuddy.utils.DeliveryLocation;
 import com.errandbuddy.errandbuddy.utils.Location;
 import com.errandbuddy.errandbuddy.utils.PickUpLocation;
 import com.errandbuddy.errandbuddy.utils.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +27,13 @@ public class Errand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//    private User user;
 
     private Long buddyId;
+
+    private Long userId;
 
     @NotBlank(message = "Description is Mandatory")
     private String description;
@@ -49,6 +51,4 @@ public class Errand {
 
     @UpdateTimestamp
     private LocalDateTime updated;
-
-
 }

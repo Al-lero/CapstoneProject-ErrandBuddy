@@ -2,11 +2,10 @@ package com.errandbuddy.errandbuddy.Services;
 
 import com.errandbuddy.errandbuddy.Data.Model.Errand;
 import com.errandbuddy.errandbuddy.Data.Model.User;
-import com.errandbuddy.errandbuddy.Dto.request.CreateErrandRequest;
-import com.errandbuddy.errandbuddy.Dto.request.CreateUserRequest;
-import com.errandbuddy.errandbuddy.Dto.request.EmailDetails;
-import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
+import com.errandbuddy.errandbuddy.Dto.request.*;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
+import com.errandbuddy.errandbuddy.Exception.UserNotFoundException;
+import com.errandbuddy.errandbuddy.Repository.ErrandRepository;
 import com.errandbuddy.errandbuddy.Repository.UserRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import com.errandbuddy.errandbuddy.utils.Status;
@@ -27,6 +26,9 @@ UserServiceImplementation implements UserService{
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    ErrandRepository errandRepository;
 
     @Override
     public ErrandBuddyResponse createUser(CreateUserRequest userRequest) {
@@ -77,17 +79,12 @@ UserServiceImplementation implements UserService{
         boolean isPasswordCorrect = loginRequest.getPassword().equals(user.getPassword());
         System.out.println("Password check result: " + isPasswordCorrect);
 
-//        return loginRequest.getPassword().equals(user.getPassword());
         return isPasswordCorrect;
     }
 
-    @Override
-    public boolean updateUser(String email, User updatedUser) {
-        return false;
-    }
 
     @Override
-    public ErrandBuddyResponse addErrand(CreateErrandRequest createErrandRequest) {
+    public ErrandBuddyResponse addNewErrand(CreateErrandRequest createErrandRequest) {
         Errand errand = Errand.builder()
                 .userId(createErrandRequest.getUserId())
                 .description(createErrandRequest.getDescription())
@@ -109,30 +106,55 @@ UserServiceImplementation implements UserService{
                 .build();
     }
 
+    @Override
+    public boolean updateUserDetails(UpdateUserDetailsRequest updateUserDetailsRequest) {
+        User existingUser = userRepository.findByEmail(updateUserDetailsRequest.getEmail());
+
+        if (existingUser == null) {
+            throw new UserNotFoundException("User not Found");
+        }
+
+        existingUser.setNin(updateUserDetailsRequest.getNin());
+        existingUser.setPhoneNumber(updateUserDetailsRequest.getPhoneNumber());
+        existingUser.setAge(updateUserDetailsRequest.getAge());
+        existingUser.setAddress(updateUserDetailsRequest.getAddress());
+        existingUser.setSurname(updateUserDetailsRequest.getSurname());
+        existingUser.setPassword(updateUserDetailsRequest.getPassword());
+
+        userRepository.save(existingUser);
+        return true;
+    }
+
 //    @Override
-//    public boolean updateUser(String email, User updatedUser) {
+//    public ErrandBuddyResponse userCanCreateErrand(CreateErrandRequest createErrandRequest) {
+//        User user = userRepository.findById(createErrandRequest.getUserId())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
 //
-//        if ((userRepository.existsUserByEmail(email)) {
-//            User existingUser = userRepository.findByEmail(email).orElse(null);
+////        Errand errand = new Errand();
+////        errand.setUser(user);
+////        errand.setDescription(createErrandRequest.getDescription());
+////        errand.setPickUpLocation(createErrandRequest.getPickUpLocation());
+////        errand.setDeliveryLocation(createErrandRequest.getDeliveryLocation());
+////        errand.setStatus(createErrandRequest.getStatus());
 //
-//            if(existingUser == null){
-//                return false;
-//            }
-//
-//            User updatedUser = existingUser.builder()
-//                .email(existingUser.getEmail()) // Keep the same email
-//                .nin(updatedUser.getNin())
-//                .phoneNumber(updatedUser.getPhoneNumber())
-//                .age(updatedUser.getAge())
-//                .address(updatedUser.getAddress())
-//                .surname(updatedUser.getSurname())
-//                .password(updatedUser.getPassword())
+//        Errand errand = Errand.builder()
+//                .user(user)
+//                .userId(user.getId())
+//                .description(createErrandRequest.getDescription())
+//                .pickUpLocation(createErrandRequest.getPickUpLocation())
+//                .deliveryLocation(createErrandRequest.getDeliveryLocation())
+//                .status(createErrandRequest.getStatus())
 //                .build();
+//        errandRepository.save(errand);
 //
-//            userRepository.save(updatedUser);
-//            return true;
-//        } else {
-//            return false;
-//        }
+//        ErrandBuddyResponse response = ErrandBuddyResponse.builder()
+//                .success(true)
+//                .message("Errand created successfully")
+//                .build();
+//        return response;
+//
+//
 //    }
+
+
 }

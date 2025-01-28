@@ -2,21 +2,21 @@ package com.errandbuddy.errandbuddy.Controller;
 
 import com.errandbuddy.errandbuddy.Dto.request.CreateUserRequest;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
+import com.errandbuddy.errandbuddy.Dto.request.UpdateUserDetailsRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class  UserController {
 
-    private final UserService userService;
+    @Autowired
+    private  UserService userService;
 
 
     @PostMapping("create")
@@ -36,5 +36,10 @@ public class  UserController {
                     .responseMessage("Invalid details")
                     .build();
         }
+    }
+
+    @PutMapping("/update")
+    public boolean updateUserDetails(@Valid @RequestBody UpdateUserDetailsRequest updateUserDetailsRequest) {
+        return userService.updateUserDetails(updateUserDetailsRequest);
     }
 }

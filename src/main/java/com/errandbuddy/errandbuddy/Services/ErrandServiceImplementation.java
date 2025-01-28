@@ -56,10 +56,6 @@ public class ErrandServiceImplementation implements ErrandService {
         User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new UserNotFoundException("User not found"));
         Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new BuddyNotFoundException("Buddy not found"));
 
-//        Errand savedErrand = errandRepository.save(newErrand);
-//        User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-//        Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new RuntimeException("Buddy not found"));
-
         String messageBody = "Your errand consists of " + savedErrand.getDescription();
         emailService.sendEmailAlert(savedUser.getEmail(), "New Errand", messageBody);
         emailService.sendEmailAlert(savedBuddy.getEmail(), "New Errand", messageBody);
@@ -91,6 +87,36 @@ public class ErrandServiceImplementation implements ErrandService {
                 .responseMessage("Errand created successfully")
                 .build();
     }
+
+//    @Override
+//    public ErrandBuddyResponse userCanCreateErrand(CreateErrandRequest createErrandRequest) {
+//        User user = userRepository.findById(createErrandRequest.getUserId())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+////        Errand errand = new Errand();
+////        errand.setUser(user);
+////        errand.setDescription(createErrandRequest.getDescription());
+////        errand.setPickUpLocation(createErrandRequest.getPickUpLocation());
+////        errand.setDeliveryLocation(createErrandRequest.getDeliveryLocation());
+////        errand.setStatus(createErrandRequest.getStatus());
+//
+//        Errand errand = Errand.builder()
+//                .user(user)
+//                .userId(user.getId())
+//                .description(createErrandRequest.getDescription())
+//                .pickUpLocation(createErrandRequest.getPickUpLocation())
+//                .deliveryLocation(createErrandRequest.getDeliveryLocation())
+//                .status(createErrandRequest.getStatus())
+//                .build();
+//
+//        errandRepository.save(errand);
+//
+//        ErrandBuddyResponse response = ErrandBuddyResponse.builder()
+//                .success(true)
+//                .message("Errand created successfully")
+//                .build();
+//        return response;
+//    }
 
 
 

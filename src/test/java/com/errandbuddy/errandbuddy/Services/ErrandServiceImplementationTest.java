@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -89,6 +90,39 @@ class ErrandServiceImplementationTest {
         assertEquals("Errand created successfully", response.getResponseMessage());
     }
 
+//    @Test
+//        public void testUserCanCreateErrand() {
+//
+//            User user = new User();
+//            user.setEmail("utieyionealero@yahoo.com");
+//            userRepository.save(user);
+//
+//
+//            CreateErrandRequest request = new CreateErrandRequest();
+//            request.setUserId(user.getId());
+//            request.setDescription("A bag of beans 90 thousand naira");
+//            request.setPickUpLocation(PickUpLocation.SURULERE);
+//            request.setDeliveryLocation(DeliveryLocation.MUSHIN);
+//            request.setStatus(Status.PENDING);
+//
+//            ErrandBuddyResponse response = errandService.createErrand(request);
+//
+//            assertTrue(response.isSuccess());
+//
+//
+//            List<Errand> errands = errandRepository.findErrandByDeliveryLocation(DeliveryLocation.MUSHIN);
+//            assertNotNull(errands);
+//            assertEquals(1, errands.size());
+//
+//            Errand savedErrand = errands.get(0);
+//            assertEquals(request.getDescription(), savedErrand.getDescription());
+//            assertEquals(request.getPickUpLocation(), savedErrand.getPickUpLocation());
+//            assertEquals(request.getDeliveryLocation(), savedErrand.getDeliveryLocation());
+//            assertEquals(request.getStatus(), savedErrand.getStatus());
+//        }
+    }
+
+
 
 //    @Test
 //    public void testThatBuddyCanGetAllTheErrands() {
@@ -100,5 +134,3 @@ class ErrandServiceImplementationTest {
 //    }
 
 
-
-}
