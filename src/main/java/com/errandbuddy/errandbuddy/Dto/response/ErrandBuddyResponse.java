@@ -8,8 +8,8 @@ import lombok.Data;
 
 public class ErrandBuddyResponse {
     private String responseMessage;
-    private boolean success;
-    private String message;
+//    private boolean success;
+//    private String message;
 
 
 }

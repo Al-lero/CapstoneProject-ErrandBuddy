@@ -5,7 +5,7 @@ import com.errandbuddy.errandbuddy.Dto.request.CreateAdminRequest;
 import com.errandbuddy.errandbuddy.Dto.request.EmailDetails;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
-import com.errandbuddy.errandbuddy.Repository.AdminRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.AdminRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

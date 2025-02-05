@@ -1,4 +1,4 @@
-package com.errandbuddy.errandbuddy.Repository;
+package com.errandbuddy.errandbuddy.Data.Repository;
 
 import com.errandbuddy.errandbuddy.Data.Model.Buddy;
 import org.springframework.data.jpa.repository.JpaRepository;

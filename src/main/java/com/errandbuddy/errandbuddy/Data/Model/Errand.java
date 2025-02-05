@@ -31,7 +31,8 @@ public class Errand {
 //    @JoinColumn(name = "user_id", insertable = false, updatable = false)
 //    private User user;
 
-    private Long buddyId;
+    @ManyToOne
+    private Buddy buddyId;
 
     private Long userId;
 

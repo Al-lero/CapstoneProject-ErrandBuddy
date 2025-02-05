@@ -19,6 +19,8 @@ public class CreateErrandRequest {
     @NotBlank(message = "Description is Mandatory")
     private String description;
 
+    private Long buddyId;
+
     private PickUpLocation pickUpLocation;
 
     private DeliveryLocation deliveryLocation;

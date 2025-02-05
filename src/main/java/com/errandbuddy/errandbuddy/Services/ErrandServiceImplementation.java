@@ -7,9 +7,9 @@ import com.errandbuddy.errandbuddy.Dto.request.CreateErrandRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Exception.BuddyNotFoundException;
 import com.errandbuddy.errandbuddy.Exception.UserNotFoundException;
-import com.errandbuddy.errandbuddy.Repository.BuddyRepository;
-import com.errandbuddy.errandbuddy.Repository.ErrandRepository;
-import com.errandbuddy.errandbuddy.Repository.UserRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.BuddyRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.ErrandRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.UserRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import com.errandbuddy.errandbuddy.utils.Status;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +44,20 @@ public class ErrandServiceImplementation implements ErrandService {
 
         }
 
+        User savedUser = userRepository.findById(createErrandRequest.getUserId()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        Buddy savedBuddy = buddyRepository.findById(createErrandRequest.getBuddyId()).orElseThrow(() -> new BuddyNotFoundException("Buddy not found"));
         Errand newErrand = Errand.builder()
                 .userId(createErrandRequest.getUserId())
                 .description(createErrandRequest.getDescription())
                 .pickUpLocation(createErrandRequest.getPickUpLocation())
                 .deliveryLocation(createErrandRequest.getDeliveryLocation())
-                .status(Status.PENDING)
+                .status(createErrandRequest.getStatus())
+                .buddyId(savedBuddy)
                 .build();
 
         Errand savedErrand = errandRepository.save(newErrand);
-        User savedUser = userRepository.findById(newErrand.getUserId()).orElseThrow(() -> new UserNotFoundException("User not found"));
-        Buddy savedBuddy = buddyRepository.findById(newErrand.getBuddyId()).orElseThrow(() -> new BuddyNotFoundException("Buddy not found"));
+
+
 
         String messageBody = "Your errand consists of " + savedErrand.getDescription();
         emailService.sendEmailAlert(savedUser.getEmail(), "New Errand", messageBody);

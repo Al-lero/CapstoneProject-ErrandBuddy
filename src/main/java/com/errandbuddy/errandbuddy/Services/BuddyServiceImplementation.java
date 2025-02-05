@@ -5,7 +5,7 @@ import com.errandbuddy.errandbuddy.Dto.request.CreateBuddyRequest;
 import com.errandbuddy.errandbuddy.Dto.request.EmailDetails;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
-import com.errandbuddy.errandbuddy.Repository.BuddyRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.BuddyRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

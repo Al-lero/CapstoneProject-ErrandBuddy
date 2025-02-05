@@ -1,25 +1,20 @@
 package com.errandbuddy.errandbuddy.Services;
 
-import com.errandbuddy.errandbuddy.Data.Model.Errand;
 import com.errandbuddy.errandbuddy.Data.Model.User;
 import com.errandbuddy.errandbuddy.Dto.request.CreateErrandRequest;
 import com.errandbuddy.errandbuddy.Dto.request.CreateUserRequest;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.request.UpdateUserDetailsRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
-import com.errandbuddy.errandbuddy.ErrandBuddyApplication;
-import com.errandbuddy.errandbuddy.Repository.ErrandRepository;
-import com.errandbuddy.errandbuddy.Repository.UserRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.ErrandRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.UserRepository;
 import com.errandbuddy.errandbuddy.utils.DeliveryLocation;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import com.errandbuddy.errandbuddy.utils.PickUpLocation;
-import com.errandbuddy.errandbuddy.utils.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -148,31 +143,11 @@ class UserServiceImplementationTest {
         assertEquals(request.getSurname(), savedUser.getSurname());
         assertEquals(request.getName(), savedUser.getName());
         assertEquals(request.getPassword(), savedUser.getPassword());
+
     }
 
-//    @Test
-//    public void testUpdateUserDetails_UserNotExists() {
-//
-//        UpdateUserDetailsRequest request = new UpdateUserDetailsRequest();
-//        request.setEmail("nonexistentuser@example.com");
-//        request.setNin("123456789");
-//        request.setPhoneNumber("07012345678");
-//        request.setAge(45);
-//        request.setAddress("800 Nonexistent St");
-//        request.setSurname("Unknown");
-//        request.setName("Ghost");
-//        request.setPassword("invisiblePwd123");
-//
-//        boolean result = userService.updateUserDetails(request);
-//
-//
-//        assertFalse(result);
-//
-//
-//        User savedUser = userRepository.findByEmail("nonexistentuser@example.com");
-//        assertNull(savedUser);
-//    }
 
+//
 //    @Test
 //    public void testUserCanCreateErrand(){
 //

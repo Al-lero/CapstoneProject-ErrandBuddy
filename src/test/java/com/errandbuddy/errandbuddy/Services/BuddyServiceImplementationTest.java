@@ -4,7 +4,7 @@ import com.errandbuddy.errandbuddy.Data.Model.Buddy;
 import com.errandbuddy.errandbuddy.Dto.request.CreateBuddyRequest;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
-import com.errandbuddy.errandbuddy.Repository.BuddyRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.BuddyRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import com.errandbuddy.errandbuddy.utils.Location;
 import org.junit.jupiter.api.BeforeEach;

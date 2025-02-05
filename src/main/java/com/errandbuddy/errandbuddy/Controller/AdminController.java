@@ -4,10 +4,8 @@ import com.errandbuddy.errandbuddy.Dto.request.CreateAdminRequest;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
 import com.errandbuddy.errandbuddy.Services.AdminService;
-import com.errandbuddy.errandbuddy.Repository.AdminRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 

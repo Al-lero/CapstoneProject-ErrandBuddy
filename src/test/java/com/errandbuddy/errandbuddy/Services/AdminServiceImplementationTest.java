@@ -4,7 +4,7 @@ import com.errandbuddy.errandbuddy.Data.Model.Admin;
 import com.errandbuddy.errandbuddy.Dto.request.CreateAdminRequest;
 import com.errandbuddy.errandbuddy.Dto.request.LoginRequest;
 import com.errandbuddy.errandbuddy.Dto.response.ErrandBuddyResponse;
-import com.errandbuddy.errandbuddy.Repository.AdminRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.AdminRepository;
 import com.errandbuddy.errandbuddy.utils.ErrandBuddyUtils;
 import com.errandbuddy.errandbuddy.utils.RoleType;
 import org.junit.jupiter.api.BeforeEach;

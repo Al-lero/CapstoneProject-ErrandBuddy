@@ -1,7 +1,7 @@
 package com.errandbuddy.errandbuddy.Services;
 
 import com.errandbuddy.errandbuddy.Data.Model.AdminPermission;
-import com.errandbuddy.errandbuddy.Repository.AdminPermissionRepository;
+import com.errandbuddy.errandbuddy.Data.Repository.AdminPermissionRepository;
 import com.errandbuddy.errandbuddy.utils.PermissionType;
 import com.errandbuddy.errandbuddy.utils.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
